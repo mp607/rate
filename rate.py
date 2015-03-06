@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import csv
@@ -13,12 +13,21 @@ class WordRate:
             if word == row['DWORD']:
                 return row
 
+    def get_word_rate(self, word):
+        w = self.get_word(word)
+        return w['NO'] if w else None
+
 if __name__ == '__main__':
     wordrate = WordRate()
     while (1):
-        word = raw_input("<字> ")
-        w =  wordrate.get_word(word)
-        if w:
-            print w['NO']
-        else:
+        word = input("<字> ")
+
+        if word == 'exit':
             exit()
+
+        for w in word:
+            rate =  wordrate.get_word_rate(w)
+            if rate:
+                print('%s, %s' % (w, rate))
+            else:
+                print(w)
